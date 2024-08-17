@@ -22,4 +22,5 @@ urlpatterns = [
     path('contact/',views.contact),
     path('',views.home),
     path('FirstApp/',include("FirstApp.urls")),
+    path('SecondApp/',include("SecondApp.urls")),
 ]
