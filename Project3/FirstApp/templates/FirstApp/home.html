@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>WELCOME</h1>
+    <h1>Name: {{Name}}</h1>
+    <h1>Age: {{Age}}</h1>
+
+    {% if Age >= 20 %}
+        <h2>You are eligible for a driving license</h2>
+    {% elif Age >= 10 and Age < 20 %}
+        <h2>You are not eligible for a driving license</h2>
+    {% else %}
+        <h2>You are only a child</h2>
+    {% endif %}
+
+    {% for i in Courses %}
+    <h3>{{i.id|add:"1"}}</h3>
+    <h3>{{i.name}} {{i.fee}}</h3>
+    <!-- <h3>{{i.description | capfirst}}</h3> -->
+    <h3>{{i.description | cut:" "}}</h3>
+    {% endfor %}
+
+    <h1>{{ Lst | join:" " }}</h1>
+    {{ Date | date:"D d M Y" }}
+</body>
+</html>
