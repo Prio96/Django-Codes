@@ -5,7 +5,7 @@ urlpatterns = [
     path('',views.home,name="homepage"),
     path('about/',views.about,name="aboutpage"),
     path('form/',views.form,name="form-submit"),
-    path('django_form/',views.django_form,name="django-form-submit")
+    path('django_form/',views.studentform,name="django-form-submit")
 ]
 
 #name is used to make things easier while giving a link in html file(In this case, base.html). It is used with url template tag like{% url 'name' %} in href
