@@ -1,6 +1,7 @@
+from django import forms
 from django.shortcuts import render
 
-from .forms import contactForm,StudentForm
+from .forms import StudentForm, contactForm, PasswordValidationProject
 
 
 # Create your views here.
@@ -42,4 +43,17 @@ def studentform(request):
             print(form.cleaned_data)
     else:
         form=StudentForm()
+    return render(request,'django_form.html',{'form':form})
+
+def PasswordValidation(request):
+    if request.method=='POST':
+        form=PasswordValidationProject(request.POST)
+        if form.is_valid():
+            # file=form.cleaned_data['file']
+            # with open('./FirstApp/upload/'+ file.name,'wb+') as destination:
+            #     for chunk in file.chunks():
+            #         destination.write(chunk)
+            print(form.cleaned_data)
+    else:
+        form=PasswordValidationProject()
     return render(request,'django_form.html',{'form':form})
