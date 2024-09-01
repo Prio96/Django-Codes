@@ -1,4 +1,6 @@
 from django.shortcuts import render
-
+from posts.models import Post
 def home(request):
-    return render(request,"base.html")
+    post=Post.objects.all()
+    print(post)
+    return render(request,"home.html",{'posts':post})
