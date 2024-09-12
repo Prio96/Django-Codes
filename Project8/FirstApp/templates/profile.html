@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h2>Welcome to Profile</h2>
+<h4>Hello {{user}}</h4><br>
+{% if messages %}
+{% for m in messages %}
+    <small class="text-white bg-success">{{m}}</small>
+{% endfor %}   
+{% endif %}
+<form method="post" class="w-50 m-auto mt-5">
+    {% csrf_token %}
+    {{form|crispy}}
+    <input type="submit" class="btn btn-primary" value="Change Data"><br>
+</form>
+<small><a href="{% url 'changepass1' %}">Click here</a> to change your password</small><br>
+<small><a href="{% url 'changepass2' %}">Click here</a> to change your password without typing current password</small>
+{% endblock content %}

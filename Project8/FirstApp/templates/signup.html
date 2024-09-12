@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% if messages %}
+<style>
+    .success{
+        color:green;
+    }
+</style>
+{% for m in messages %}
+    <small {% if m.tags %} class="{{m.tags}}" {% endif %}>{{m}}</small>
+{% endfor %}
+    
+{% endif %}
+<form method="post" class="w-50 m-auto mt-5">
+    {% csrf_token %}
+    {{form|crispy}}
+    <input type="submit" class="btn btn-primary" value="Submit"><br>
+    <small>Already have an account? <a class="text-primary"style="text-decoration: none;"href="{% url 'login' %}">Log in</a></small>
+</form>
+{% endblock content %}
