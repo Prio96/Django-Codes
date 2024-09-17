@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate,login,logout,update_session_auth_ha
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm
 from django.contrib.auth.decorators import login_required
+from posts.models import Post
 # Create your views here.
 def Register(request):
     if request.method=='POST':
@@ -36,7 +37,8 @@ def Log_in(request):
 
 @login_required
 def Profile(request):
-    return render(request,"profile.html",{'type':'Profile'})
+    data=Post.objects.filter(author=request.user)
+    return render(request,"profile.html",{'posts':data,'type':'Profile'})
 
 @login_required
 def Edit_Profile(request):

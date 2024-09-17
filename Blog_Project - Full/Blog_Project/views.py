@@ -1,6 +1,10 @@
 from django.shortcuts import render
 from posts.models import Post
-def home(request):
+from categories.models import Category
+def home(request,category_slug=None):
     post=Post.objects.all()
-    print(post)
-    return render(request,"home.html",{'posts':post})
+    if category_slug is not None:
+        category=Category.objects.get(slug=category_slug)
+        post=Post.objects.filter(category=category)
+    category=Category.objects.all()
+    return render(request,"home.html",{'posts':post,'categories':category})

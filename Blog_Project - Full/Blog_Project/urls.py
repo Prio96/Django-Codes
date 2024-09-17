@@ -22,5 +22,6 @@ urlpatterns = [
     path('', views.home,name="HomePage"),
     path('author/',include("author.urls")),
     path('category/',include("categories.urls")),
+    path('category/<slug:category_slug>/',views.home,name="ShowAsFiltered"),
     path('post/',include("posts.urls")),
 ]
