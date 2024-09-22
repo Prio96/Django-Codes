@@ -30,7 +30,7 @@ def Log_in(request):
                 return redirect("Profile")
         else:
             messages.warning(request,"Login credentials don't match")
-            return redirect("Register")
+            return redirect("Login")
     else:
         form=AuthenticationForm()
     return render(request,"register.html",{'form':form,'type':'Login'})

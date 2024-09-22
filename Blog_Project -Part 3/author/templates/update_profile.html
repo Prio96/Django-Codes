@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+<form method="post" class="m-auto w-50" novalidate>
+    {% csrf_token %}
+    <h1>{{type}}</h1>
+    <a class="btn btn-sm btn-warning" href="{% url 'ChangePass' %}">Change Password</a>
+    {{form|crispy}}
+    <input type="submit" class="btn btn-primary" value="Update">
+</form>
+{% endblock %}
