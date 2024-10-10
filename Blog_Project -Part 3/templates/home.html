@@ -34,9 +34,11 @@
       <div class="col-3 mt-1">
         <div class="card mx-2">
           <div class="card-body">
+            {% if post.image %}
             <img src="{{post.image.url}}" class="card-img-top" alt="...">
-            <h5 class="card-title">{{post.title}}</h5>
-            <p class="card-text">{{post.content}}</p>
+            {% endif %}
+            <h5 class="card-title"><a class="text-decoration-none text-success" href="{% url 'DetailPage' post.id %}">{{post.title}}</a></h5>
+            <p class="card-text">{{post.content | truncatewords:7}}</p>
             <p class="card-text">Author: {{post.author.username}}</p>
             <p>Genre:
               {% for cat in post.category.all %}
@@ -53,3 +55,11 @@
   </div>
 </div>
 {% endblock content %}
+
+<!-- Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reprehenderit aperiam ducimus cumque adipisci quo soluta voluptas. Magni porro nobis architecto sed voluptatem debitis at id quasi. Beatae eos eligend
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla ex, earum sunt sequi cumque corrupti provident fuga possimus sit reiciendis!
+
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae, dolore harum illum nisi odit officia nostrum molestiae, nobis facere amet quae expedita velit. Expedita officia amet, perferendis nihil aut quam?
+
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, consequuntur obcaecati illum magnam quis harum? Voluptate, reprehenderit temporibus! Ipsam praesentium soluta culpa recusandae unde voluptates cupiditate quas quisquam similique doloribus. -->

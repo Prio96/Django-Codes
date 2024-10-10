@@ -5,7 +5,7 @@ from .forms import PostForm
 from .models import Post
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.views.generic import CreateView,UpdateView,DeleteView
+from django.views.generic import CreateView,UpdateView,DeleteView,DetailView
 from django.urls import reverse_lazy
 # Create your views here.
 # @login_required
@@ -59,5 +59,10 @@ class DeletePostClassView(DeleteView):
     template_name='delete_post.html'
     success_url=reverse_lazy("HomePage")
     pk_url_kwarg='id'
+
+class DetailPageView(DetailView):
+    model=Post
+    pk_url_kwarg='id'
+    template_name='detail_page.html'
 
     
