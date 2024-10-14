@@ -65,4 +65,8 @@ class DetailPageView(DetailView):
     pk_url_kwarg='id'
     template_name='detail_page.html'
 
+    def get_context_data(self, **kwargs):
+        context=super().get_context_data(**kwargs)
+        post=self.object
+        
     
