@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'author',
     'categories',
     'posts',
+    'new_post'
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"

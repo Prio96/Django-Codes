@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm
 from django.contrib.auth.views import LoginView,LogoutView
 from django.contrib.auth.decorators import login_required
-from posts.models import Post
+from new_post.models import NewPost
 from django.urls import reverse_lazy
 # Create your views here.
 def Register(request):
@@ -41,7 +41,7 @@ def Register(request):
 
 @login_required
 def Profile(request):
-    data=Post.objects.filter(author=request.user)
+    data=NewPost.objects.filter(author=request.user)
     return render(request,"profile.html",{'posts':data,'type':'Profile'})
 
 @login_required

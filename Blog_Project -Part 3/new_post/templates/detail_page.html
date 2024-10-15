@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="col-12">
+    <div class="card m-2">
+        <div class="card-body">
+            {% if newpost.image %}
+            <img src="{{newpost.image.url}}" class="card-img-top" alt="...">
+            {% endif %}
+            <h2>{{newpost.title}}</h2>
+            <p>{{newpost.content}}</p>
+            <p>Genre:
+                {% for cat in newpost.category.all %}
+                <button type="button" class="btn btn-primary btn-sm my-1">{{cat}}</button>
+                {% endfor %}
+            </p>
+            {% if request.user == newpost.author %}
+            <a href="{% url 'EditPost' newpost.id %}" class="btn btn-warning">Edit</a>
+            <a href="{% url 'DeletePost' newpost.id %}" class="btn btn-danger">Delete</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="card m-2">
+        <div class="card-body">
+            <h4>Comments: {{comments|length}}</h4>
+            {% for comment in comments %}
+                <h3>{{comment.name}}</h3>
+                <p>{{comment.email}}</p><br>
+                <p>{{comment.body}}</p><br>
+                <small><i>Commented at {{comment.time}}</i></small>
+                <hr>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="card m-2">
+        <div class="card-body">
+            <form method="post" action="{% url 'DetailPage' newpost.id %}">
+                {% csrf_token %}
+                {{comment_form|crispy}}
+                <input type="submit" class="btn btn-danger" value="Submit">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
