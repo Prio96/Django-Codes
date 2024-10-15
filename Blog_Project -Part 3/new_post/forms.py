@@ -8,5 +8,5 @@ class NewPostForm(forms.ModelForm):
 
 class NewCommentForm(forms.ModelForm):
     class Meta:
-        model=NewComment
+        model=NewComment  
         fields=['name','email','body']

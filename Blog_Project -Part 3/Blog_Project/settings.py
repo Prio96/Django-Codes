@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     'author',
     'categories',
-    'posts',
     'new_post'
 ]
 

@@ -54,8 +54,7 @@ class DetailPageView(DetailView):
         print("Inside")
         print(newpost.author)
         print(self.request.user)
-        comment_form=NewCommentForm()
-        
+        comment_form=NewCommentForm() 
         context['comments']=comments
         context['comment_form']=comment_form
         return context
