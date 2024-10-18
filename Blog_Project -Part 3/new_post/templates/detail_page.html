@@ -33,6 +33,7 @@
         </div>
         {% endfor %}
     </div>
+    {% if request.user.is_authenticated %}
     <div class="card m-2">
         <div class="card-body">
             <form method="post" action="{% url 'DetailPage' newpost.id %}">
@@ -42,5 +43,9 @@
             </form>
         </div>
     </div>
+    {% else %}
+    <a href="{% url 'Login' %}" class="btn btn-info">Login to Comment</a>
+    {% endif %}
+    
 </div>
 {% endblock content %}

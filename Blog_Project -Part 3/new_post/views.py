@@ -15,7 +15,7 @@ class AddPostClassView(CreateView):
     model=NewPost
     form_class=NewPostForm
     template_name='add_post.html'
-    success_url=reverse_lazy("AddPost")
+    success_url=reverse_lazy("HomePage")
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
         form.instance.author=self.request.user
         return super().form_valid(form)
@@ -43,6 +43,10 @@ class DetailPageView(DetailView):
         if comment_form.is_valid():
             new_comment=comment_form.save(commit=False)
             new_comment.post=newpost
+            new_comment.name=request.user
+            new_comment.email=request.user.email
+            print(request.user)
+            print(request.user.email)
             new_comment.save()
             return self.get(request,*args,**kwargs)
 
