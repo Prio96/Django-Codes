@@ -5,12 +5,12 @@ from django.contrib.auth.models import User
 
 class UserRegistrationForm(UserCreationForm):
     birth_date=forms.DateField(widget=forms.DateInput(attrs={'type':'date'}))
-    gender=forms.CharField(max_length=10,choices=Gender_type)
+    gender=forms.ChoiceField(choices=Gender_type)
     street_address=forms.CharField(max_length=100)
     city=forms.CharField(max_length=100)
     postal_code=forms.IntegerField()
     country=forms.CharField(max_length=100)
-    account_type=forms.CharField(max_length=10,choices=Account_type)
+    account_type=forms.ChoiceField(choices=Account_type)
     
     class Meta:
         model=User
@@ -44,3 +44,16 @@ class UserRegistrationForm(UserCreationForm):
                 account_no=100000+our_user.id
             )
         return our_user
+    
+    def __init__(self,*args,**kwargs):
+        super().__init__(*args,**kwargs)
+        
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({
+                'class':(
+                    'appearance-none block w-full bg-gray-200 '
+                    'text-gray-700 border border-gray-200 rounded '
+                    'py-3 px-4 leading-tight focus:outline-none '
+                    'focus:bg-white focus:border-gray-500'
+                )
+            })
