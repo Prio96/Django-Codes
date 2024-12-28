@@ -85,13 +85,14 @@ class UserUpdateForm(forms.ModelForm):
         
         if self.instance:
             try:
-                user_account=self.instance.account
-                user_address=self.instance.address
+                user_account=self.instance.account#User object from UserBankAccount Model
+                user_address=self.instance.address#User object from UserAddress Model
             except UserBankAccount.DoesNotExist:
                 user_account=None
                 user_address=None
             
             if user_account:
+                #Prepopulate
                 self.fields['account_type'].initial=user_account.account_type
                 self.fields['gender'].initial=user_account.gender
                 self.fields['birth_date'].initial=user_account.birth_date
@@ -105,7 +106,7 @@ class UserUpdateForm(forms.ModelForm):
         if commit:
             user.save()
             
-            user_account, created=UserBankAccount.objects.get_or_create(user=user)#If account exists then user_account will get that value else account will be created and it will go to created
+            user_account, created=UserBankAccount.objects.get_or_create(user=user)#If account exists then user_account will get that value else account will be created
             user_address, created=UserAddress.objects.get_or_create(user=user)
             
             user_account.account_type=self.cleaned_data['account_type']
