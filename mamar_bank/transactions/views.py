@@ -67,7 +67,7 @@ class WithdrawMoneyView(TransactionCreateMixin):
         return super().form_valid(form)
     
 class LoanRequestView(TransactionCreateMixin):
-    form_Class=LoanRequestForm
+    form_class=LoanRequestForm
     title='Request For Loan'
     
     def get_initial(self):
@@ -82,7 +82,7 @@ class LoanRequestView(TransactionCreateMixin):
         return super().form_valid(form)
     
 class TransactionReportView(LoginRequiredMixin,ListView):
-    template_name=""
+    template_name="transactions/transaction_report.html"
     model=TransactionModel
     balance=0
     
