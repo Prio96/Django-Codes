@@ -8,12 +8,13 @@ from .forms import DepositForm,WithdrawForm,LoanRequestForm
 from django.http import HttpResponse
 from datetime import *
 from django.db.models import Sum
+from django.urls import reverse_lazy
 #Ei view ke inherit kore deposit, withdraw, loan request er kaaj
 class TransactionCreateMixin(LoginRequiredMixin,CreateView):
-    template_name=''
+    template_name='transactions/transaction_form.html'
     model=TransactionModel
     title=''
-    success_url=''
+    success_url=reverse_lazy('Transaction Report')
     
     def get_form_kwargs(self):
         kwargs=super().get_form_kwargs()

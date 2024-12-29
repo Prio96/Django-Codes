@@ -4,7 +4,7 @@ from .views import DepositMoneyView, WithdrawMoneyView, TransactionReportView, L
 urlpatterns = [
     path("deposit/",DepositMoneyView.as_view(), name="Deposit"),
     path("report/",TransactionReportView.as_view(), name="Transaction Report"),
-    path("withdraw/",WithdrawMoneyView.as_view(), name="Withdraw Money"),
+    path("withdraw/",WithdrawMoneyView.as_view(), name="Withdraw"),
     path("loan_request/",LoanRequestView.as_view(), name="Loan Request"),
     path("loans/",LoanListView.as_view(), name="Loan List"),
     path("loan/<int:loan_id>/",RepayLoanView.as_view(), name="Loan Repayment"),
