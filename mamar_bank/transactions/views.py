@@ -99,7 +99,7 @@ class TransactionReportView(LoginRequiredMixin,ListView):
             end_date=datetime.strptime(end_date_str,"%Y-%m-%d").date()
             queryset=queryset.filter(timestamp_date_gte=start_date,timestamp_data_lte=end_date)
             
-            self.balance=TransactionModel.objects.filter(timestamp_date_gte=start_date, timestamp_data_lte=end_date).aggregate(Sum('amount'))['amount__sum']
+            self.balance=TransactionModel.objects.filter(timestamp__date__gte=start_date, timestamp__data__lte=end_date).aggregate(Sum('amount'))['amount__sum']
         
         else:
             self.balance=self.request.user.account.balance
