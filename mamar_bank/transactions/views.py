@@ -85,6 +85,7 @@ class TransactionReportView(LoginRequiredMixin,ListView):
     template_name="transactions/transaction_report.html"
     model=TransactionModel
     balance=0
+    context_object_name="report_list"
     
     def get_queryset(self):
         queryset=super().get_queryset().filter(
@@ -97,9 +98,9 @@ class TransactionReportView(LoginRequiredMixin,ListView):
         if start_date_str and end_date_str:
             start_date=datetime.strptime(start_date_str, "%Y-%m-%d").date()
             end_date=datetime.strptime(end_date_str,"%Y-%m-%d").date()
-            queryset=queryset.filter(timestamp_date_gte=start_date,timestamp_data_lte=end_date)
+            queryset=queryset.filter(timestamp__date__gte=start_date,timestamp__date__lte=end_date)#for filtering through account
             
-            self.balance=TransactionModel.objects.filter(timestamp__date__gte=start_date, timestamp__data__lte=end_date).aggregate(Sum('amount'))['amount__sum']
+            self.balance=TransactionModel.objects.filter(timestamp__date__gte=start_date, timestamp__date__lte=end_date).aggregate(Sum('amount'))['amount__sum']
         
         else:
             self.balance=self.request.user.account.balance
@@ -133,7 +134,7 @@ class RepayLoanView(LoginRequiredMixin, View):
 
 class LoanListView(LoginRequiredMixin, ListView):
     model=TransactionModel
-    template_name=""
+    template_name="transactions/loan_request.html"
     context_object_name='loans'
     
     def get_queryset(self):
