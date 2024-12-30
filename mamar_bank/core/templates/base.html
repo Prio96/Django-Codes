@@ -8,10 +8,13 @@
 </head>
 <body class="bg-indigo-600">
     {% include 'navbar.html' %}
-    <div>
-        {% block body %}
-
-        {% endblock body %}
-    </div>
+    {% block body %}
+        <div class="lg:container lg:mx-auto" id="main">
+            {% include 'messages.html' %}
+            {% block content %}
+            {% endblock %}
+        </div>
+    {% endblock %}
+    {% include 'footer.html' %}
 </body>
 </html>
