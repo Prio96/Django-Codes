@@ -126,11 +126,11 @@ class RepayLoanView(LoginRequiredMixin, View):
                 user_account.save()
                 loan.transaction_type=LOAN_PAID
                 loan.save()
-                return redirect("")
+                return redirect("Loan List")
             
             else:
                 messages.error(self.request, f"Loan repayment amount is greater than available balance")
-                return redirect("")
+                return redirect("Loan List")
 
 class LoanListView(LoginRequiredMixin, ListView):
     model=TransactionModel
