@@ -8,6 +8,8 @@ from .forms import DepositForm,WithdrawForm,LoanRequestForm
 from django.http import HttpResponse
 from datetime import *
 from django.db.models import Sum
+from django.core.mail import EmailMessage,EmailMultiAlternatives
+from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 #Ei view ke inherit kore deposit, withdraw, loan request er kaaj
 class TransactionCreateMixin(LoginRequiredMixin,CreateView):
@@ -47,6 +49,15 @@ class DepositMoneyView(TransactionCreateMixin):
         )
         
         messages.success(self.request, f"{amount}$ was deposited to your account successfully")
+        mail_subject='Deposit Message'
+        message=render_to_string('transactions/deposit_email.html',{
+            'user':self.request.user,
+            'amount':amount
+        })
+        to_email=self.request.user.email
+        send_email=EmailMultiAlternatives(mail_subject, '', to=[to_email])
+        send_email.attach_alternative(message,"text/html")
+        send_email.send()
         return super().form_valid(form)
     
     
