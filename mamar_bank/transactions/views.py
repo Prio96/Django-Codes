@@ -11,6 +11,15 @@ from django.db.models import Sum
 from django.core.mail import EmailMessage,EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
+
+def send_transaction_email(user,amount,subject,template):
+    message=render_to_string(template,{
+        'user':user,
+        'amount':amount,
+    })
+    send_email=EmailMultiAlternatives(subject, '', to=[user.email])
+    send_email.attach_alternative(message,"text/html")
+    send_email.send()
 #Ei view ke inherit kore deposit, withdraw, loan request er kaaj
 class TransactionCreateMixin(LoginRequiredMixin,CreateView):
     template_name='transactions/transaction_form.html'
@@ -49,15 +58,7 @@ class DepositMoneyView(TransactionCreateMixin):
         )
         
         messages.success(self.request, f"{amount}$ was deposited to your account successfully")
-        mail_subject='Deposit Message'
-        message=render_to_string('transactions/deposit_email.html',{
-            'user':self.request.user,
-            'amount':amount
-        })
-        to_email=self.request.user.email
-        send_email=EmailMultiAlternatives(mail_subject, '', to=[to_email])
-        send_email.attach_alternative(message,"text/html")
-        send_email.send()
+        send_transaction_email(self.request.user,amount,"Deposit Message","transactions/deposit_email.html")
         return super().form_valid(form)
     
     
@@ -75,6 +76,7 @@ class WithdrawMoneyView(TransactionCreateMixin):
             update_fields=['balance']
         )
         messages.success(self.request, f"{amount}$ was withdrawn from your account successfully")
+        send_transaction_email(self.request.user,amount,"Withdrawal Message","transactions/withdrawal_email.html")
         return super().form_valid(form)
     
 class LoanRequestView(TransactionCreateMixin):
@@ -90,6 +92,7 @@ class LoanRequestView(TransactionCreateMixin):
         if current_loan_count>=3:
             return HttpResponse("You have crossed limit")
         messages.success(self.request,f"Loan request for amount {amount}$ has been made to admin")
+        send_transaction_email(self.request.user,amount,"Loan Request Message","transactions/loan_email.html")
         return super().form_valid(form)
     
 class TransactionReportView(LoginRequiredMixin,ListView):
